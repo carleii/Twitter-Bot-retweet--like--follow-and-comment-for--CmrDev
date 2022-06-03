@@ -1,0 +1,54 @@
+[
+    {
+        "label": "client",
+        "importPath": "http",
+        "description": "http",
+        "isExtraImport": true,
+        "detail": "http",
+        "documentation": {}
+    },
+    {
+        "label": "TypeInfo",
+        "importPath": "xml.dom.minidom",
+        "description": "xml.dom.minidom",
+        "isExtraImport": true,
+        "detail": "xml.dom.minidom",
+        "documentation": {}
+    },
+    {
+        "label": "tweepy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tweepy",
+        "description": "tweepy",
+        "detail": "tweepy",
+        "documentation": {}
+    },
+    {
+        "label": "clientSecret",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "clientSecret = \"cmfRRWaGuJyMFhnHtUiz7-MpuAKoqIr2yRf512hbPhfgrkpmYq\"\nbearToken =\"AAAAAAAAAAAAAAAAAAAAAKYNdQEAAAAASwVDmufR8VWNur7LgUTp9gnUV40%3Dho59XGGqssy24cmpi6PSFQEFwBdeX7HlwygkvYXhwSVp00blFh\"\nkey =\"PARFkAuz48MnifLMGqPZLDZjb\"\nkeySecret =\"ZA3COHm2vEeqGx7QcHcyG0542Hyp1IoKctv2AgMC396RFKt8hO\"\naccessToken =\"1532289914531889152-1RI7YVYuNcEe0uKugcwr7EtLUIxnW1\"\naccessTokenSecret =\"MrhYjQYDiBmYZmFrK2X7j1IklLg5apDLkH7FHFLIixhha\"\nclient = tweepy.Client(bearToken)\ntweets = client.get_users_mentions(clientId)\nprint(tweets)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "client = tweepy.Client(bearToken)\ntweets = client.get_users_mentions(clientId)\nprint(tweets)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "tweets",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "tweets = client.get_users_mentions(clientId)\nprint(tweets)",
+        "detail": "bot",
+        "documentation": {}
+    }
+]
