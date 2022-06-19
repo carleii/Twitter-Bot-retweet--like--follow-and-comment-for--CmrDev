@@ -8,7 +8,7 @@
 #please increase this counter as a 
 #warning for the next person:
 
-#total_hours_wasted_here = 45
+#total_hours_wasted_here = 57
 
 
 import tweepy
@@ -51,8 +51,9 @@ def store_last_seen(FILE_NAME, tweetId):
 
 
 # je recherche tous les tweets recents sur #cmrdev
-query = "#CmrDev OR #CaParleDev"
-newRequest = client.search_recent_tweets(query=query, max_results= 100)
+query = "#CmrDev OR #CaParleDev OR #PHP"
+
+newRequest = client.search_recent_tweets(query=query, max_results= 10)
 for tweet in (newRequest.data):
     get = client.get_tweet(tweet.id, expansions="author_id")
     # print(get.includes.get('users')[0].id) #auth id
@@ -64,29 +65,17 @@ for tweet in (newRequest.data):
     
     see = check(FILE_NAME, tweet.id ) #check if exist: false = 0, true = 1
     if (see == 0):
-        tweetId.insert(0, tweet.id)
-        store_last_seen(FILE_NAME, tweetId )
-        #tweet
-        api.create_tweet(text= tweet.text, quote_tweet_id=tweet.id)
-        #follow
-        api.follow_user( target_user_id = get.includes.get('users')[0].id)
-        #retweet
-        # api.retweet(tweet_id=tweet.id) I need elevated access on my twitter dev account
-        #like
-        # api.like(tweet_id=tweet.id) #I need elevated access on my twitter dev account
-        
+        try:
+            tweetId.insert(0, tweet.id)
+            store_last_seen(FILE_NAME, tweetId )
+            #tweet
+            api.create_tweet(text= tweet.text, quote_tweet_id=tweet.id)
+            #follow
+            api.follow_user( target_user_id = get.includes.get('users')[0].id)
+            #retweet
+            # api.retweet(tweet_id=tweet.id) I need elevated access on my twitter dev account
+            #like
+            # api.like(tweet_id=tweet.id) #I need elevated access on my twitter dev account
+        except:
+            pass
     #print(tweet.text) #tweet content
-
-
-
-
-
-# query = 'covid -is:retweet'
-# answer = client.get_users_mentions(id=config.myId)
-# for tweet in answer.data:
-#     get = client.get_tweet(tweet.id, expansions="author_id")
-#     print(get.includes.get('users')[0].id) #auth id
-#     print(tweet.id) #tweet id
-#     print(tweet.text) #tweet content
-
-# je vais suivre tous les tweets sur cmrdev, retwetter, liker , et follow
