@@ -1,7 +1,7 @@
 # Dear programmer:
 #When i wrote this code, only god and
 #I knew how it worked.
-#Now, only gog knows it !
+#Now, only god knows it !
 
 #Therefore, if you are trying to optimize
 #this routine and it fails (most surely),
@@ -55,20 +55,24 @@ for tweet in (newRequest.data):
     get = client.get_tweet(tweet.id, expansions="author_id")
     # print(get.includes.get('users')[0].id) #auth id
     # print(tweet.id) #tweet id
-    see = check(FILE_NAME, tweet.id )
-    print(see);
+
+    #check if the tweet auth is me
+    if get.includes.get('users')[0].id == config.myId: #skip
+        continue
+    
+    see = check(FILE_NAME, tweet.id ) #check if exist: false = 0, true = 1
     if (see == 0):
         tweetId.insert(0, tweet.id)
         store_last_seen(FILE_NAME, tweetId )
         #follow
         # client.follow(get.includes.get('users')[0].id)
         #retweet
-        client.retweet(tweet.id)
+        #client.retweet(tweet.id)
         #like
-        client.like(tweet.id)
+        #client.like(tweet.id)
         #comment
         
-    # print(tweet.text) #tweet content
+    print(tweet.text) #tweet content
 
 
 
