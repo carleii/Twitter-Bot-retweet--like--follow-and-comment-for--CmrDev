@@ -8,19 +8,22 @@
 #please increase this counter as a 
 #warning for the next person:
 
-#total_hours_wasted_here = 28
+#total_hours_wasted_here = 45
 
 
 import tweepy
 import config
 
+#Twitter API v2  REFERENCE OAuth 2.0 Bearer Token (App-Only)
 client = tweepy.Client(bearer_token=config.bearToken)
-# client = tweepy.Client(
-#     consumer_key=config.key,
-#     consumer_secret=config.keySecret,
-#     access_token=config.accessToken,
-#     access_token_secret=config.accessTokenSecret
-# )
+
+#TWITTER API V2 REFERENCE OAuth 1.0a User Context
+api = tweepy.Client(
+    consumer_key=config.key,
+    consumer_secret=config.keySecret,
+    access_token=config.accessToken,
+    access_token_secret=config.accessTokenSecret
+)
 FILE_NAME = 'last_seen.text'
 tweetId = []
 
@@ -43,13 +46,12 @@ def store_last_seen(FILE_NAME, tweetId):
         for item in tweetId:
             # write each item on a new line
             fp.write("%s\n" % item)
-        print('Done')
     fp.close()
     return
 
 
 # je recherche tous les tweets recents sur #cmrdev
-query = "#CmrDev"
+query = "#CmrDev OR #CaParleDev"
 newRequest = client.search_recent_tweets(query=query, max_results= 100)
 for tweet in (newRequest.data):
     get = client.get_tweet(tweet.id, expansions="author_id")
@@ -64,15 +66,16 @@ for tweet in (newRequest.data):
     if (see == 0):
         tweetId.insert(0, tweet.id)
         store_last_seen(FILE_NAME, tweetId )
+        #tweet
+        api.create_tweet(text= tweet.text, quote_tweet_id=tweet.id)
         #follow
-        # client.follow(get.includes.get('users')[0].id)
+        api.follow_user( target_user_id = get.includes.get('users')[0].id)
         #retweet
-        #client.retweet(tweet.id)
+        # api.retweet(tweet_id=tweet.id) I need elevated access on my twitter dev account
         #like
-        #client.like(tweet.id)
-        #comment
+        # api.like(tweet_id=tweet.id) #I need elevated access on my twitter dev account
         
-    print(tweet.text) #tweet content
+    #print(tweet.text) #tweet content
 
 
 
